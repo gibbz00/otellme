@@ -1,7 +1,7 @@
 # Otellme - One-stop solution for OpenTelemetry collection.
 
 [![ci_status](https://img.shields.io/github/actions/workflow/status/gibbz00/otellme/ci.yaml?style=for-the-badge)](https://github.com/gibbz00/otellme/actions/workflows/ci.yaml)
-[![codecov](https://img.shields.io/codecov/c/gh/gibbz00/otellme?token=nOnGXghHYk&style=for-the-badge)](https://codecov.io/gh/gibbz00/otellme)
+[![codecov](https://img.shields.io/codecov/c/gh/gibbz00/otellme?token=6QOtoiZk7d&style=for-the-badge)](https://codecov.io/gh/gibbz00/otellme)
 [![license](https://img.shields.io/github/license/gibbz00/otellme.svg?style=for-the-badge)](https://github.com/gibbz00/otellme/blob/main/LICENSE.md)
 [![discord](https://img.shields.io/discord/1211287533393154138?label=discord&color=5865f2&style=for-the-badge)](https://discord.gg/yD5xKbtjDm)
 
