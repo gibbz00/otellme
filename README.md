@@ -22,11 +22,11 @@
 
 ### Non-goals
 
-* Support multiple ingestion formats, better handled by the ingestors behind an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/).
+* Support multiple ingestion formats, better handled by placing the ingestors behind an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/).
 
 ## Project status
 
-Otellme remains to get of the ground by producing a proof of concept, or in other words; very far away from being in a usable state that partially fulfills the project goals. Currently developed by one person during the weekends. Help is nonetheless warmly welcomed :)
+Otellme remains to get off the ground by producing a proof of concept, or in other words; very far away from being in a usable state that partially fulfills the project goals. Project is currently developed by one person during the weekends. Help is nonetheless warmly welcomed :)
 
 ## Further reading
 
