@@ -1,0 +1,18 @@
+[package]
+name = "otellme-ingestor"
+authors.workspace = true
+repository.workspace = true
+exclude.workspace = true
+edition.workspace = true
+readme.workspace = true
+version.workspace = true
+
+[features]
+test-utils = []
+
+[lints]
+workspace = true
+
+[dependencies]
+
+[dev-dependencies]
