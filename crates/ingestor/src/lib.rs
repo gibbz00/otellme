@@ -1,3 +1,6 @@
+//! Temp crate documentation
+
+/// Temp documentation
 pub fn hello_otellme() -> &'static str {
     "hello!"
 }
