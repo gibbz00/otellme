@@ -5,11 +5,6 @@
 [![license](https://img.shields.io/github/license/gibbz00/otellme.svg?style=for-the-badge)](https://github.com/gibbz00/otellme/blob/main/LICENSE.md)
 [![discord](https://img.shields.io/discord/1211287533393154138?label=discord&color=5865f2&style=for-the-badge)](https://discord.gg/yD5xKbtjDm)
 
-<!-- TEMP: uncomment after 0.1 release
-[![crates_io](https://img.shields.io/crates/v/otellme.svg?style=for-the-badge)](https://crates.io/crates/otellme)
-[![docs_rs](https://img.shields.io/docsrs/otellme/latest.svg?style=for-the-badge)](https://docs.rs/otellme)
--->
-
 ## Goals:
 
 * Support all OpenTelemetry signals (traces, logs and metrics).
@@ -31,9 +26,9 @@ Otellme remains to get off the ground by producing a proof of concept, or in oth
 ## Further reading
 
 * [Architecture](https://excalidraw.com/#json=WO87mhQIxyjwbQhMA2-jN,20b3WxqKmMTPx5UIYbaX1Q)
-* [Contributing.](/CODE_OF_CONDUCT.md)
-* [Code of conduct.](/CODE_OF_CONDUCT.md)
-* [Security policy.](/SECURITY.md)
+* [Contributing](/CODE_OF_CONDUCT.md)
+* [Code of conduct](/CODE_OF_CONDUCT.md)
+* [Security policy](/SECURITY.md)
 
 <!-- TODO: Acknowledge the rest large players (but also the small, and the contributors!):
 # Acknowledgements
