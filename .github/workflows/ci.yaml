@@ -50,6 +50,20 @@ jobs:
         uses: ./.github/actions/build_setup
       - name: Run clippy
         run: cargo clippy --all-features --tests -- -D warnings
+  mdbook_validation:
+    name: mdBook validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Build setup
+        uses: ./.github/actions/build_setup
+      - name: mdBook setup
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: 'latest'
+      - name: Run mdbook test
+        run: mdbook test
   docs_validation:
     name: Docs validation
     runs-on: ubuntu-latest

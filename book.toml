@@ -1,0 +1,19 @@
+[book]
+authors = ["Gabriel Hansson <gabrielhansson00@gmail.com>"]
+language = "en"
+multilingual = false
+src = "book"
+title = "Otellme Documentation"
+
+[rust]
+edition = "2021"
+
+[build]
+build-dir = "target/book"
+
+[output.html]
+preferred-dark-theme = "navy"
+curly-quotes = true
+git-repository-url = "https://github.com/gibbz00/otellme"
+edit-url-template = "https://github.com/gibbz00/otellme/edit/main/{path}"
+cname = "gibbz00.github.io"
