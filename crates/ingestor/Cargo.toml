@@ -7,12 +7,15 @@ edition.workspace = true
 readme.workspace = true
 version.workspace = true
 
-[features]
-test-utils = []
-
 [lints]
 workspace = true
 
 [dependencies]
+otellme-utils = { path = "../utils", version = "0" }
 
-[dev-dependencies]
+anyhow.workspace = true
+async-trait.workspace = true
+opentelemetry-proto = { workspace = true, features = ["gen-tonic", "logs"] }
+tracing.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
+tonic = { workspace = true, default-features = false, features = ["prost", "transport"] }
