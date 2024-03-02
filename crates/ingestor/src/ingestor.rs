@@ -16,9 +16,15 @@ impl OtlpIngestor {
 
     /// Consume the ingestor and beging serving.
     pub async fn serve(self, addr: impl Into<SocketAddr>) -> Result<(), TonicError> {
-        TonicServer::builder()
-            .add_service(LogsServiceImplementation::service())
-            .serve(addr.into())
-            .await
+        let mut server = TonicServer::builder();
+
+        #[cfg(feature = "logs")]
+        let server = server.add_service(GrpcSignalServer::<LogsMessage>::new());
+        #[cfg(feature = "metrics")]
+        let server = server.add_service(GrpcSignalServer::<MetricsMessage>::new());
+        #[cfg(feature = "traces")]
+        let server = server.add_service(GrpcSignalServer::<TracesMessage>::new());
+
+        server.serve(addr.into()).await
     }
 }

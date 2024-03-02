@@ -1,7 +1,10 @@
 //! Otellme Ingestor crate.
 
-mod services;
-pub(crate) use services::*;
+mod ingestor;
+pub use ingestor::OtlpIngestor;
 
-mod server;
-pub use server::OtlpIngestor;
+mod grpc;
+pub(crate) use grpc::GrpcSignalServer;
+
+mod message_generics;
+pub(crate) use message_generics::*;

@@ -10,12 +10,23 @@ version.workspace = true
 [lints]
 workspace = true
 
+[features]
+default = ["logs", "metrics", "traces"]
+
+logs = ["opentelemetry-proto/logs"]
+metrics = ["opentelemetry-proto/metrics"]
+traces = ["opentelemetry-proto/trace"]
+
 [dependencies]
 otellme-utils = { path = "../utils", version = "0" }
 
 anyhow.workspace = true
 async-trait.workspace = true
-opentelemetry-proto = { workspace = true, features = ["gen-tonic", "logs"] }
+impl-tools.workspace = true
+once_cell.workspace = true
+opentelemetry-proto = { workspace = true, features = ["gen-tonic"] }
+prost.workspace = true
 tracing.workspace = true
 tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
-tonic = { workspace = true, default-features = false, features = ["prost", "transport"] }
+tonic = { workspace = true, default-features = false, features = ["prost", "transport", "gzip"] }
+tower-service.workspace = true

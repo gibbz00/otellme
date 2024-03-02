@@ -2,4 +2,4 @@
 
 [Introduction](./introduction.md)
 
-- [Ingestor](./ingestror.md)
+- [Ingestor](./ingestor.md)
