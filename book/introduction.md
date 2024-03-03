@@ -11,4 +11,6 @@ Each crate contains nonetheless the feature flags `logs`, `metrics` and `traces`
 
 This book is filled with emojis to act as shorthand for side some notes whose meaning of which are:
 
-🚧 - Feature is currently not supported, but part of the roadmap. Possibly even under construction.
+✅ - Feature supported.
+
+🚧 - Feature currently not supported. Part of the roadmap, however. Possibly even under construction.
