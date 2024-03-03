@@ -28,13 +28,12 @@ Default port is `4318`.
 
 #### Additional Transport features
 
-##### Compression 🚧
-
-##### TLS 🚧
-
-##### Authentication 🚧
-
-##### Throttling 🚧
+| Feature \ System | OLTP/gRPC | OLTP/HTTP | Notes         |
+|---               |:-:        |:-:        | ---           |
+| Compression      | ✅        | 🚧        | Gzip or none. |
+| TLS              | 🚧        | 🚧        |               |
+| Authentication   | 🚧        | 🚧        |               |
+| Throttling       | 🚧        | 🚧        |               |
 
 ### OLTP Services
 
