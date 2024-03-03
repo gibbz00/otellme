@@ -1,5 +1,5 @@
-mod message_signal;
-pub(crate) use message_signal::*;
+mod signal_message;
+pub(crate) use signal_message::*;
 
 mod request;
 pub(crate) use request::*;
