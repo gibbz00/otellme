@@ -10,7 +10,7 @@ OLTP supports a wide-variety of transportation methods summarized in the followi
 
 | System    | HTTP     | Content-Type             | Supported |
 |---        |---       |---                       |:-:        |
-| OLTP/gRPC | HTTP/2   | `application/x-protobuf` |🚧         |
+| OLTP/gRPC | HTTP/2   | `application/x-protobuf` |✅         |
 | OLTP/HTTP | HTTP/1.1 | `application/x-protobuf` |🚧         |
 | OLTP/HTTP | HTTP/2   | `application/x-protobuf` |🚧         |
 | OLTP/HTTP | HTTP/1.1 | `application/json`       |🚧         |
@@ -35,10 +35,10 @@ Default port is `4318`.
 | Authentication   | 🚧        | 🚧        |               |
 | Throttling       | 🚧        | 🚧        |               |
 
-### OLTP Services
+### Supported signals
 
-For the ingestor to be fully compliant, 3 services must be implemented:
-
-- [LogsService](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/collector/logs/v1/logs_service.proto) 🚧
-- [TraceService](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/collector/trace/v1/trace_service.proto) 🚧
-- [MetricsService](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/collector/metrics/v1/metrics_service.proto) 🚧
+| Signal \ System | OLTP/gRPC                                                                                                                            | OLTP/HTTP |
+|---              |:-:                                                                                                                                   |:-:        |
+| Logs            | [✅](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/collector/logs/v1/logs_service.proto)       | 🚧        |
+| Metrics         | [✅](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/collector/trace/v1/trace_service.proto)     | 🚧        |
+| Traces          | [✅](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/collector/metrics/v1/metrics_service.proto) | 🚧        |
