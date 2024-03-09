@@ -11,9 +11,10 @@ use otellme_utils::*;
 async fn main() -> anyhow::Result<()> {
     InternalInstrumentor::init()?;
 
-    // TODO: support port overrides by config, env, var cli flag, etc.
-    let addr = "[::1]:4317".parse::<SocketAddrV6>()?;
-    OtlpIngestor::builder().serve_grpc(addr).await?;
+    OtlpIngestor::default()
+        .configure_grpc("[::1]:4317".parse::<SocketAddrV6>()?)
+        .serve()
+        .await?;
 
     Ok(())
 }

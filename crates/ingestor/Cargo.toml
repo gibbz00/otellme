@@ -31,11 +31,10 @@ traces = ["opentelemetry-proto/trace"]
 otellme-utils = { path = "../utils", version = "0" }
 
 anyhow.workspace = true
+futures-util.workspace = true
 opentelemetry-proto = { workspace = true, features = ["gen-tonic"] }
-tracing.workspace = true
-
-# TEMP: move to dev-dependencies, used in binary only
 tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
+tracing.workspace = true
 
 # OTLP/gRPC
 impl-tools = { workspace = true, optional = true }

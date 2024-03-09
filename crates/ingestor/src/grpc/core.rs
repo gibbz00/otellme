@@ -17,6 +17,8 @@ impl<M: SignalMessage> GrpcSignalServer<M> {
     // For performance reasons, it is recommended to keep this RPC
     // alive for the entire life of the application.
     //
+    // possibly with tonic::Servrer.http2_keepalive_interval()
+    //
     // https://github.com/open-telemetry/opentelemetry-proto/tree/main/opentelemetry/proto/collector
     pub async fn ingest(&self, request: Request<M::Request>) -> Result<Response<M::Response>, Status> {
         tracing::info!("recieved request!");
