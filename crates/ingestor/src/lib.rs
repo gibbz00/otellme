@@ -12,4 +12,5 @@ pub(crate) use message_generics::*;
 
 #[cfg(feature = "grpc")]
 mod grpc;
+#[cfg(feature = "grpc")]
 pub(crate) use grpc::*;

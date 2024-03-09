@@ -14,7 +14,7 @@ mod server {
     use crate::*;
 
     pub struct GrpcServer {
-        router: Router,
+        server: Router,
         socket_address: SocketAddr,
     }
 
@@ -32,13 +32,13 @@ mod server {
             let server = server.add_service(GrpcSignalServer::<TracesMessage>::new());
 
             Self {
-                router: server,
+                server,
                 socket_address: socket_address.into(),
             }
         }
 
         async fn serve(self) -> Result<(), Self::ServeError> {
-            self.router.serve(self.socket_address).await
+            self.server.serve(self.socket_address).await
         }
     }
 }

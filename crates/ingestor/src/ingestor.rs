@@ -20,12 +20,9 @@ mod state {
 
 pub use core::OtlpIngestor;
 mod core {
-    use std::{marker::PhantomData, net::SocketAddr};
+    use std::marker::PhantomData;
 
-    use futures_util::{
-        future::{self, try_join_all},
-        FutureExt,
-    };
+    use futures_util::{future::try_join_all, FutureExt};
 
     use crate::*;
 
@@ -53,7 +50,7 @@ mod core {
     impl<S: OtlpIngestorState> OtlpIngestor<S> {
         /// Configure the ingestor for OTLP/gRPC serving.
         #[cfg(feature = "grpc")]
-        pub fn configure_grpc(self, addr: impl Into<SocketAddr>) -> OtlpIngestor<IngestorWithServer> {
+        pub fn configure_grpc(self, addr: impl Into<std::net::SocketAddr>) -> OtlpIngestor<IngestorWithServer> {
             OtlpIngestor {
                 optional_grpc_server: Some(GrpcServer::configure(addr)),
                 state_marker: PhantomData,
@@ -76,7 +73,7 @@ mod core {
                     }
                     .left_future()
                 })
-                .unwrap_or(future::ok(()).right_future());
+                .unwrap_or(futures_util::future::ok(()).right_future());
 
             try_join_all([
                 #[cfg(feature = "grpc")]
