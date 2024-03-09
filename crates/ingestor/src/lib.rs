@@ -1,7 +1,8 @@
-//! Otellme Ingestor crate.
+//! Otellme Ingestor library crate.
 
 mod ingestor;
 pub use ingestor::OtlpIngestor;
+pub(crate) use ingestor::*;
 
 mod server;
 pub(crate) use server::OtlpServer;

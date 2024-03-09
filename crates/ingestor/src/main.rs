@@ -11,7 +11,7 @@ use otellme_utils::*;
 async fn main() -> anyhow::Result<()> {
     InternalInstrumentor::init()?;
 
-    OtlpIngestor::default()
+    OtlpIngestor::new()
         .configure_grpc("[::1]:4317".parse::<SocketAddrV6>()?)
         .serve()
         .await?;
