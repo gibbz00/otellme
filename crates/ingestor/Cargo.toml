@@ -21,7 +21,6 @@ traces = ["opentelemetry-proto/trace"]
 otellme-utils = { path = "../utils", version = "0" }
 
 anyhow.workspace = true
-async-trait.workspace = true
 impl-tools.workspace = true
 once_cell.workspace = true
 opentelemetry-proto = { workspace = true, features = ["gen-tonic"] }

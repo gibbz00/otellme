@@ -652,7 +652,6 @@ name = "otellme-ingestor"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "async-trait",
  "impl-tools",
  "once_cell",
  "opentelemetry-proto",
