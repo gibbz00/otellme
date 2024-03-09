@@ -3,7 +3,14 @@ mod core {
     use crate::*;
 
     pub trait SignalMessage: Send + Sync + 'static {
+        #[cfg(not(feature = "grpc"))]
+        type Request: SealedRequest + EmtpyRequest + Send + Sync + 'static;
+        #[cfg(feature = "grpc")]
         type Request: SealedRequest + EmtpyRequest + prost::Message + Default + Send + Sync + 'static;
+
+        #[cfg(not(feature = "grpc"))]
+        type Response: SealedResponse + SuccessResponse + Send + Sync + 'static;
+        #[cfg(feature = "grpc")]
         type Response: SealedResponse + SuccessResponse + prost::Message + Default + Send + Sync + 'static;
     }
 }

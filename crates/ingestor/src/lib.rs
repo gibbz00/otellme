@@ -3,6 +3,7 @@
 mod ingestor;
 pub use ingestor::OtlpIngestor;
 
+#[cfg(feature = "grpc")]
 mod grpc;
 pub(crate) use grpc::GrpcSignalServer;
 

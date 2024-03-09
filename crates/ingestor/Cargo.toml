@@ -11,8 +11,18 @@ version.workspace = true
 workspace = true
 
 [features]
-default = ["logs", "metrics", "traces"]
+default = ["grpc", "logs", "metrics", "traces"]
 
+# Transport system
+grpc = [
+  "dep:impl-tools",
+  "dep:once_cell",
+  "dep:prost",
+  "dep:tonic",
+  "dep:tower-service",
+]
+
+# Signal
 logs = ["opentelemetry-proto/logs"]
 metrics = ["opentelemetry-proto/metrics"]
 traces = ["opentelemetry-proto/trace"]
@@ -21,11 +31,15 @@ traces = ["opentelemetry-proto/trace"]
 otellme-utils = { path = "../utils", version = "0" }
 
 anyhow.workspace = true
-impl-tools.workspace = true
-once_cell.workspace = true
 opentelemetry-proto = { workspace = true, features = ["gen-tonic"] }
-prost.workspace = true
 tracing.workspace = true
+
+# TEMP: move to dev-dependencies, used in binary only
 tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
-tonic = { workspace = true, default-features = false, features = ["prost", "transport", "gzip"] }
-tower-service.workspace = true
+
+# OTLP/gRPC
+impl-tools = { workspace = true, optional = true }
+once_cell = { workspace = true, optional = true }
+prost = { workspace = true, optional = true }
+tonic = { workspace = true, default-features = false, features = ["prost", "transport", "gzip"], optional = true }
+tower-service = { workspace = true, optional = true }

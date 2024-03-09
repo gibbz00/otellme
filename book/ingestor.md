@@ -20,9 +20,13 @@ OLTP supports a wide-variety of transportation methods summarized in the followi
 
 ##### OLTP/gRPC
 
+Feature flagged as `grpc`, enabled by default.
+
 Default port is `4317`.
 
 ##### OLTP/HTTP
+
+Feature flagged as `http`, enabled by default.
 
 Default port is `4318`.
 
