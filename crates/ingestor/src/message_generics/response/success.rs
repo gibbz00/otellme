@@ -1,6 +1,7 @@
 use crate::*;
 
 pub trait SuccessResponse: SealedResponse {
+    /// OTPL/gRPC and OTLP/HTTP
     /// The server MUST leave the partial_success field unset in case of a successful response.
     fn sucessful() -> Self;
 }

@@ -21,6 +21,7 @@ grpc = [
   "dep:tonic",
   "dep:tower-service",
 ]
+http = ["dep:axum"]
 
 # Signal
 logs = ["opentelemetry-proto/logs"]
@@ -42,3 +43,6 @@ once_cell = { workspace = true, optional = true }
 prost = { workspace = true, optional = true }
 tonic = { workspace = true, default-features = false, features = ["prost", "transport", "gzip"], optional = true }
 tower-service = { workspace = true, optional = true }
+
+# OTLP/HTTP
+axum = { workspace = true, features = ["http2"], optional = true }

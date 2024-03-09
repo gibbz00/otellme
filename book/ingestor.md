@@ -30,6 +30,8 @@ Feature flagged as `http`, enabled by default.
 
 Default port is `4318`.
 
+The ingestor uses for a given signal the default URL path listed [in the spec](https://opentelemetry.io/docs/specs/otlp/#otlphttp-request): `/v1/logs`, `/v1/metrics` and `/v1/traces` respectively.
+
 #### Additional Transport features
 
 | Feature \ System | OLTP/gRPC | OLTP/HTTP | Notes         |

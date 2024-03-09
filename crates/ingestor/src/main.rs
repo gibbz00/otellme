@@ -13,6 +13,7 @@ async fn main() -> anyhow::Result<()> {
 
     OtlpIngestor::new()
         .configure_grpc("[::1]:4317".parse::<SocketAddrV6>()?)
+        .configure_http("[::1]:4318".parse::<SocketAddrV6>()?)
         .serve()
         .await?;
 

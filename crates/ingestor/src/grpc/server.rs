@@ -10,8 +10,6 @@ pub struct GrpcServer {
 }
 
 impl OtlpServer for GrpcServer {
-    type ServeError = tonic::transport::Error;
-
     fn configure(socket_address: impl Into<SocketAddr>) -> Self {
         let mut server = tonic::transport::Server::builder();
 
@@ -28,7 +26,7 @@ impl OtlpServer for GrpcServer {
         }
     }
 
-    async fn serve(self) -> Result<(), Self::ServeError> {
-        self.server.serve(self.socket_address).await
+    async fn serve(self) -> anyhow::Result<()> {
+        self.server.serve(self.socket_address).await.map_err(Into::into)
     }
 }

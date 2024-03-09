@@ -14,3 +14,8 @@ pub(crate) use message_generics::*;
 mod grpc;
 #[cfg(feature = "grpc")]
 pub(crate) use grpc::*;
+
+#[cfg(feature = "http")]
+mod httpx;
+#[cfg(feature = "http")]
+pub(crate) use httpx::*;
