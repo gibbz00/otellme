@@ -1,10 +1,12 @@
 use std::marker::PhantomData;
 
 use axum::{
-    extract::Request,
+    extract::{FromRequest, Request},
     response::{IntoResponse, Response},
     Router,
 };
+use bytes::Bytes;
+use http::StatusCode;
 
 use crate::*;
 
@@ -14,14 +16,28 @@ pub struct HttpService<M: SignalMessage> {
 
 impl<M: SignalMessage> HttpService<M> {
     async fn handler(request: Request) -> Response {
-        let _content_type = match ContentType::try_from(request.headers()) {
+        let content_type = match ContentType::try_from(request.headers()) {
             Ok(content_type) => content_type,
             Err(err) => return err.into_response(),
         };
 
-        // TODO: branch on content-type header
-        // return error if not matched
-        "temp".into_response()
+        // TODO: consider  configuring the request body limit to anything higher than 2MB
+        // https://docs.rs/axum/latest/axum/extract/index.html#request-body-limits
+        let payload = match Bytes::from_request(request, &()).await {
+            Ok(bytes) => bytes,
+            Err(err) => return err.into_response(),
+        };
+
+        let _signal_request = match payload.deserialize_by_content_type::<M::Request>(content_type) {
+            Ok(signal_request) => signal_request,
+            // FIXME: correct error according to spec
+            Err(_err) => return StatusCode::BAD_REQUEST.into_response(),
+        };
+
+        M::Response::sucessful()
+            .serialize_by_content_type(content_type)
+            .expect("success response should be serializable")
+            .into_response()
     }
 
     pub fn add_to_router(router: Router) -> Router
@@ -68,17 +84,21 @@ mod tests {
         }
 
         #[tokio::test]
-        async fn handler_accepts_json_content_type() {
-            assert_content_type_acceptance(ContentType::Json).await;
+        async fn handler_accepts_json_format() {
+            assert_format_acceptance(ContentType::Json).await;
         }
 
         #[tokio::test]
-        async fn handler_accepts_protobuf_content_type() {
-            assert_content_type_acceptance(ContentType::Protobuf).await;
+        async fn handler_accepts_protobuf_format() {
+            assert_format_acceptance(ContentType::Protobuf).await;
         }
 
-        async fn assert_content_type_acceptance(content_type: ContentType) {
-            let mut request = Request::new(Body::empty());
+        async fn assert_format_acceptance(content_type: ContentType) {
+            let mut request = Request::new(Body::from(
+                <LogsMessage as SignalMessage>::Request::empty()
+                    .serialize_by_content_type(content_type)
+                    .unwrap(),
+            ));
             content_type.add_to_headers(request.headers_mut());
 
             let response = HttpService::<LogsMessage>::handler(request).await;

@@ -3,15 +3,15 @@ mod core {
     use crate::*;
 
     pub trait SignalMessage: Send + Sync + 'static {
-        #[cfg(not(feature = "grpc"))]
-        type Request: SealedRequest + EmtpyRequest + Send + Sync + 'static;
-        #[cfg(feature = "grpc")]
-        type Request: SealedRequest + EmtpyRequest + prost::Message + Default + Send + Sync + 'static;
+        #[cfg(not(feature = "http"))]
+        type Request: SealedRequest + IsEmtpyRequest + prost::Message + Default + Send + Sync + 'static;
+        #[cfg(feature = "http")]
+        type Request: SealedRequest + IsEmtpyRequest + prost::Message + Default + serde::de::DeserializeOwned + Send + Sync + 'static;
 
-        #[cfg(not(feature = "grpc"))]
-        type Response: SealedResponse + SuccessResponse + Send + Sync + 'static;
-        #[cfg(feature = "grpc")]
+        #[cfg(not(feature = "http"))]
         type Response: SealedResponse + SuccessResponse + prost::Message + Default + Send + Sync + 'static;
+        #[cfg(feature = "http")]
+        type Response: SealedResponse + SuccessResponse + prost::Message + Default + serde::Serialize + Send + Sync + 'static;
     }
 }
 

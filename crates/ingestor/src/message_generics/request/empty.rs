@@ -1,16 +1,16 @@
 use crate::*;
 
-pub trait EmtpyRequest: SealedRequest {
-    fn is_empty(&self) -> bool;
+pub trait EmptyRequest: SealedRequest {
+    fn empty() -> Self;
 }
 
 #[cfg(feature = "logs")]
 mod logs {
     use opentelemetry_proto::tonic::collector::logs::v1::ExportLogsServiceRequest;
 
-    impl super::EmtpyRequest for ExportLogsServiceRequest {
-        fn is_empty(&self) -> bool {
-            self.resource_logs.is_empty()
+    impl super::EmptyRequest for ExportLogsServiceRequest {
+        fn empty() -> Self {
+            Self { resource_logs: vec![] }
         }
     }
 }
@@ -19,9 +19,9 @@ mod logs {
 mod metrics {
     use opentelemetry_proto::tonic::collector::metrics::v1::ExportMetricsServiceRequest;
 
-    impl super::EmtpyRequest for ExportMetricsServiceRequest {
-        fn is_empty(&self) -> bool {
-            self.resource_metrics.is_empty()
+    impl super::EmptyRequest for ExportMetricsServiceRequest {
+        fn empty() -> Self {
+            Self { resource_metrics: vec![] }
         }
     }
 }
@@ -30,9 +30,9 @@ mod metrics {
 mod traces {
     use opentelemetry_proto::tonic::collector::trace::v1::ExportTraceServiceRequest;
 
-    impl super::EmtpyRequest for ExportTraceServiceRequest {
-        fn is_empty(&self) -> bool {
-            self.resource_spans.is_empty()
+    impl super::EmptyRequest for ExportTraceServiceRequest {
+        fn empty() -> Self {
+            Self { resource_spans: vec![] }
         }
     }
 }

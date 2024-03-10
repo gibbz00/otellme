@@ -14,14 +14,17 @@ workspace = true
 default = ["grpc", "logs", "metrics", "traces"]
 
 # Transport system
-grpc = [
-  "dep:impl-tools",
-  "dep:once_cell",
-  "dep:prost",
-  "dep:tonic",
-  "dep:tower-service",
+grpc = ["dep:impl-tools", "dep:once_cell", "dep:tonic", "dep:tower-service"]
+http = [
+  "dep:axum",
+  "dep:bytes",
+  "dep:http",
+  "dep:serde",
+  "dep:serde_json",
+  "dep:strum",
+  "dep:thiserror",
+  "opentelemetry-proto/with-serde",
 ]
-http = ["dep:axum", "dep:http", "dep:thiserror", "dep:strum"]
 
 # Signal
 logs = ["opentelemetry-proto/logs"]
@@ -34,19 +37,22 @@ otellme-utils = { path = "../utils", version = "0" }
 anyhow.workspace = true
 futures-util.workspace = true
 opentelemetry-proto = { workspace = true, features = ["gen-tonic"] }
+prost.workspace = true
 tokio = { workspace = true, features = ["rt-multi-thread", "macros"] }
 tracing.workspace = true
 
 # OTLP/gRPC
 impl-tools = { workspace = true, optional = true }
 once_cell = { workspace = true, optional = true }
-prost = { workspace = true, optional = true }
 tonic = { workspace = true, default-features = false, features = ["prost", "transport", "gzip"], optional = true }
 tower-service = { workspace = true, optional = true }
 
 # OTLP/HTTP
 axum = { workspace = true, features = ["http2"], optional = true }
+bytes = { workspace = true, optional = true }
 http = { workspace = true, optional = true }
+serde = { workspace = true, optional = true }
+serde_json = { workspace = true, optional = true }
 strum = { workspace = true, optional = true }
 thiserror = { workspace = true, optional = true }
 

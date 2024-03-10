@@ -45,6 +45,7 @@ mod tests {
 
         use super::*;
 
+        // TODO: combine with HTTP handler and use `EmptyRequest` trait.
         // If the server receives an empty request
         // (a request that does not carry any telemetry data)
         // the server SHOULD respond with success.
