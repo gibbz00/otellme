@@ -13,6 +13,6 @@ impl<M: SignalMessage> HttpService<M> {
     where
         M: HttpSignalPath,
     {
-        router.route(M::DEFAULT_HTTP_PATH, axum::routing::get(|| async { "temp" }))
+        router.route(M::DEFAULT_HTTP_PATH, axum::routing::post(|| async { "temp" }))
     }
 }

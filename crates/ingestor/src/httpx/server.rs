@@ -49,32 +49,32 @@ mod tests {
         "[::1]:9000".parse().unwrap()
     }
 
-    async fn assert_serves_signal_service<M: SignalMessage + HttpSignalPath>() {
+    async fn assert_serves_post_signal_endpoint<M: SignalMessage + HttpSignalPath>() {
         let mut router = HttpServer::configure(mock_address()).router;
 
-        let response = router
-            .call(Request::builder().uri(M::DEFAULT_HTTP_PATH).body(Body::empty()).unwrap())
-            .await
-            .unwrap();
+        // From spec: Telemetry data is sent via HTTP POST request.
+        let request = Request::post(M::DEFAULT_HTTP_PATH).body(Body::empty()).unwrap();
+
+        let response = router.call(request).await.unwrap();
 
         assert_eq!(response.status(), StatusCode::OK);
     }
 
     #[cfg(feature = "logs")]
     #[tokio::test]
-    async fn serves_logs_service() {
-        assert_serves_signal_service::<LogsMessage>().await
+    async fn serves_post_logs_endpoint() {
+        assert_serves_post_signal_endpoint::<LogsMessage>().await
     }
 
     #[cfg(feature = "metrics")]
     #[tokio::test]
-    async fn serves_metrics_service() {
-        assert_serves_signal_service::<MetricsMessage>().await
+    async fn serves_post_metrics_endpoint() {
+        assert_serves_post_signal_endpoint::<MetricsMessage>().await
     }
 
     #[cfg(feature = "traces")]
     #[tokio::test]
-    async fn serves_traces_service() {
-        assert_serves_signal_service::<TracesMessage>().await
+    async fn serves_post_traces_endpoint() {
+        assert_serves_post_signal_endpoint::<TracesMessage>().await
     }
 }
