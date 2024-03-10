@@ -13,7 +13,14 @@ pub struct HttpService<M: SignalMessage> {
 }
 
 impl<M: SignalMessage> HttpService<M> {
-    async fn handler(_request: Request) -> Response {
+    async fn handler(request: Request) -> Response {
+        let _content_type = match ContentType::try_from(request.headers()) {
+            Ok(content_type) => content_type,
+            Err(err) => return err.into_response(),
+        };
+
+        // TODO: branch on content-type header
+        // return error if not matched
         "temp".into_response()
     }
 

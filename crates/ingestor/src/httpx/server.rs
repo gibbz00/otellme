@@ -37,10 +37,8 @@ impl OtlpServer for HttpServer {
 mod tests {
     use std::net::SocketAddrV6;
 
-    use axum::{
-        body::Body,
-        http::{Request, StatusCode},
-    };
+    use axum::body::Body;
+    use http::{Request, StatusCode};
     use tower_service::Service;
 
     use super::*;

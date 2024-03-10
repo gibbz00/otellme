@@ -21,7 +21,7 @@ grpc = [
   "dep:tonic",
   "dep:tower-service",
 ]
-http = ["dep:axum"]
+http = ["dep:axum", "dep:http", "dep:thiserror", "dep:strum"]
 
 # Signal
 logs = ["opentelemetry-proto/logs"]
@@ -46,6 +46,9 @@ tower-service = { workspace = true, optional = true }
 
 # OTLP/HTTP
 axum = { workspace = true, features = ["http2"], optional = true }
+http = { workspace = true, optional = true }
+strum = { workspace = true, optional = true }
+thiserror = { workspace = true, optional = true }
 
 [dev-dependencies]
 tower-service.workspace = true
