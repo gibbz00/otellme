@@ -20,16 +20,16 @@ static OTEL_GRPC_ENABLED_COMPRESSION_ENCODING: Lazy<EnabledCompressionEncodings>
     compression_encodings
 });
 
-impl<M: SignalMessage> UnaryService<M::Request> for GrpcSignalServer<M> {
+impl<M: SignalMessage> UnaryService<M::Request> for GrpcSignalService<M> {
     type Response = M::Response;
     type Future = BoxFuture<Response<Self::Response>, tonic::Status>;
 
     fn call(&mut self, request: Request<M::Request>) -> Self::Future {
-        Box::pin(async move { GrpcSignalServer::<M>::new().ingest(request).await })
+        Box::pin(async move { GrpcSignalService::<M>::new().ingest(request).await })
     }
 }
 
-impl<M: SignalMessage, B> tower_service::Service<http::Request<B>> for GrpcSignalServer<M>
+impl<M: SignalMessage, B> tower_service::Service<http::Request<B>> for GrpcSignalService<M>
 where
     B: Body + Send + 'static,
     B::Error: Into<StdError> + Send + 'static,
@@ -48,7 +48,7 @@ where
             Box::pin(async move {
                 Ok(Grpc::new(ProstCodec::default())
                     .apply_compression_config(*OTEL_GRPC_ENABLED_COMPRESSION_ENCODING, *OTEL_GRPC_ENABLED_COMPRESSION_ENCODING)
-                    .unary(GrpcSignalServer::<M>::new(), req)
+                    .unary(GrpcSignalService::<M>::new(), req)
                     .await)
             })
         } else {

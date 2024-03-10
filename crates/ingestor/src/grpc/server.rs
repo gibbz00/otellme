@@ -14,11 +14,11 @@ impl OtlpServer for GrpcServer {
         let mut server = tonic::transport::Server::builder();
 
         #[cfg(feature = "logs")]
-        let server = server.add_service(GrpcSignalServer::<LogsMessage>::new());
+        let server = server.add_service(GrpcSignalService::<LogsMessage>::new());
         #[cfg(feature = "metrics")]
-        let server = server.add_service(GrpcSignalServer::<MetricsMessage>::new());
+        let server = server.add_service(GrpcSignalService::<MetricsMessage>::new());
         #[cfg(feature = "traces")]
-        let server = server.add_service(GrpcSignalServer::<TracesMessage>::new());
+        let server = server.add_service(GrpcSignalService::<TracesMessage>::new());
 
         Self {
             server,

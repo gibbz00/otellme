@@ -6,9 +6,9 @@ use crate::*;
 
 #[derive(Debug)]
 #[impl_tools::autoimpl(Clone)]
-pub struct GrpcSignalServer<M: SignalMessage>(PhantomData<M>);
+pub struct GrpcSignalService<M: SignalMessage>(PhantomData<M>);
 
-impl<M: SignalMessage> GrpcSignalServer<M> {
+impl<M: SignalMessage> GrpcSignalService<M> {
     pub fn new() -> Self {
         Self(PhantomData)
     }
@@ -23,6 +23,7 @@ impl<M: SignalMessage> GrpcSignalServer<M> {
     pub async fn ingest(&self, request: Request<M::Request>) -> Result<Response<M::Response>, Status> {
         tracing::info!("recieved request!");
 
+        // TODO: combine with HTTP service
         if request.get_ref().is_empty() {
             return Ok(Response::new(M::Response::sucessful()));
         }
@@ -52,7 +53,7 @@ mod tests {
         #[tokio::test]
         async fn empty_request_returns_successful_response() {
             let empty_request = Request::new(ExportLogsServiceRequest { resource_logs: vec![] });
-            let actual_response = GrpcSignalServer::<LogsMessage>::new().ingest(empty_request).await.unwrap();
+            let actual_response = GrpcSignalService::<LogsMessage>::new().ingest(empty_request).await.unwrap();
             assert_eq!(&<LogsMessage as SignalMessage>::Response::sucessful(), actual_response.get_ref());
         }
     }

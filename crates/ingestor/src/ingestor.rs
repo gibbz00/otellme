@@ -11,9 +11,7 @@ mod state {
         use crate::*;
 
         pub trait SealedOtlpIngestorState {}
-
         impl SealedOtlpIngestorState for IngestorWithServer {}
-
         impl SealedOtlpIngestorState for IngestorWithoutServer {}
     }
 }
