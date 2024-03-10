@@ -51,7 +51,8 @@ mod tests {
         let mut router = HttpServer::configure(mock_address()).router;
 
         // From spec: Telemetry data is sent via HTTP POST request.
-        let request = Request::post(M::DEFAULT_HTTP_PATH).body(Body::empty()).unwrap();
+        let mut request = Request::post(M::DEFAULT_HTTP_PATH).body(Body::empty()).unwrap();
+        ContentType::Json.add_to_headers(request.headers_mut());
 
         let response = router.call(request).await.unwrap();
 

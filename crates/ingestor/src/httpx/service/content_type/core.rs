@@ -1,14 +1,20 @@
-use http::{header::CONTENT_TYPE, HeaderMap};
-use strum::{AsRefStr, EnumString};
+use http::{header::CONTENT_TYPE, HeaderMap, HeaderValue};
+use strum::{EnumString, IntoStaticStr};
 
 use crate::*;
 
-#[derive(Debug, PartialEq, Clone, Copy, AsRefStr, EnumString)]
+#[derive(Debug, PartialEq, Clone, Copy, IntoStaticStr, EnumString)]
 pub enum ContentType {
     #[strum(serialize = "application/json")]
     Json,
     #[strum(serialize = "application/x-protobuf")]
     Protobuf,
+}
+
+impl ContentType {
+    pub fn add_to_headers(self, headers: &mut HeaderMap) {
+        headers.insert(CONTENT_TYPE, HeaderValue::from_static(self.into()));
+    }
 }
 
 impl TryFrom<&HeaderMap> for ContentType {
@@ -26,7 +32,7 @@ impl TryFrom<&HeaderMap> for ContentType {
 
 #[cfg(test)]
 mod tests {
-    use http::{HeaderName, HeaderValue};
+    use http::HeaderName;
 
     use super::*;
 
@@ -48,5 +54,21 @@ mod tests {
         )]);
 
         assert_eq!(ContentType::Protobuf, (&headers).try_into().unwrap())
+    }
+
+    #[test]
+    fn updates_json_content_type_headers() {
+        assert_insertion(ContentType::Json)
+    }
+
+    #[test]
+    fn updates_protobuf_content_type_headers() {
+        assert_insertion(ContentType::Protobuf)
+    }
+
+    fn assert_insertion(content_type: ContentType) {
+        let mut headers = HeaderMap::new();
+        content_type.add_to_headers(&mut headers);
+        assert_eq!(content_type, (&headers).try_into().unwrap())
     }
 }
