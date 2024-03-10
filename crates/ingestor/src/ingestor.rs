@@ -41,7 +41,9 @@ mod core {
     impl Default for OtlpIngestor<IngestorWithoutServer> {
         fn default() -> Self {
             Self {
+                #[cfg(feature = "grpc")]
                 optional_grpc_server: None,
+                #[cfg(feature = "http")]
                 optional_http_server: None,
                 state_marker: PhantomData,
             }
