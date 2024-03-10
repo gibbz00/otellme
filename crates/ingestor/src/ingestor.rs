@@ -23,9 +23,10 @@ mod core {
     use std::{marker::PhantomData, net::SocketAddr};
 
     use futures_util::{
-        future::{try_join_all, BoxFuture, Either, Ready},
-        FutureExt,
+        future::{Either, Ready},
+        Future, FutureExt,
     };
+    use tokio::try_join;
 
     use crate::*;
 
@@ -86,21 +87,20 @@ mod core {
     impl OtlpIngestor<IngestorWithServer> {
         /// Consume the ingestor and beging serving.
         pub async fn serve(self) -> anyhow::Result<()> {
-            try_join_all([
+            try_join!(
                 #[cfg(feature = "grpc")]
-                spawn_optional_server::<GrpcServer>(self.optional_grpc_server),
+                spawn_optional_server(self.optional_grpc_server),
                 #[cfg(feature = "http")]
-                spawn_optional_server::<HttpServer>(self.optional_http_server),
-            ])
-            .await?;
+                spawn_optional_server(self.optional_http_server),
+            )?;
 
             return Ok(());
 
-            fn spawn_optional_server<S: OtlpServer + Send + 'static>(
+            fn spawn_optional_server<S: OtlpServer>(
                 optional_server: Option<S>,
-            ) -> Either<BoxFuture<'static, anyhow::Result<()>>, Ready<anyhow::Result<()>>> {
+            ) -> Either<impl Future<Output = anyhow::Result<()>>, Ready<anyhow::Result<()>>> {
                 optional_server
-                    .map(|server| async move { tokio::spawn(server.serve()).await? }.boxed().left_future())
+                    .map(|server| async move { tokio::spawn(server.serve()).await? }.left_future())
                     .unwrap_or(futures_util::future::ok(()).right_future())
             }
         }
