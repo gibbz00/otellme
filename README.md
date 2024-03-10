@@ -17,7 +17,7 @@
 
 ### Non-goals
 
-* Support multiple ingestion formats, better handled by placing the ingestors behind an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/).
+* Support multiple ingestion formats. Better handled by placing the ingestors behind an [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/) or the like.
 
 ## Project status
 
