@@ -46,3 +46,6 @@ tower-service = { workspace = true, optional = true }
 
 # OTLP/HTTP
 axum = { workspace = true, features = ["http2"], optional = true }
+
+[dev-dependencies]
+tower-service.workspace = true
