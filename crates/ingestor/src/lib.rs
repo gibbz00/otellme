@@ -10,6 +10,9 @@ pub(crate) use ingestor::*;
 mod server;
 pub(crate) use server::OtlpServer;
 
+mod service;
+pub(crate) use service::*;
+
 #[cfg(feature = "grpc")]
 mod grpc;
 #[cfg(feature = "grpc")]

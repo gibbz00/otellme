@@ -28,15 +28,21 @@ impl<M: SignalMessage> HttpService<M> {
             Err(err) => return err.into_response(),
         };
 
-        let _signal_request = match payload.deserialize_by_content_type::<M::Request>(content_type) {
+        let signal_request = match payload.deserialize_by_content_type::<M::Request>(content_type) {
             Ok(signal_request) => signal_request,
             // FIXME: correct error according to spec
             Err(_err) => return StatusCode::BAD_REQUEST.into_response(),
         };
 
-        M::Response::sucessful()
-            .serialize_by_content_type(content_type)
-            .expect("success response should be serializable")
+        ingest_service::<M>(signal_request)
+            .await
+            .map(|response| {
+                response
+                    .serialize_by_content_type(content_type)
+                    .expect("success response should be serializable")
+            })
+            // TEMP: add correct error handling
+            .map_err(|err| (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()))
             .into_response()
     }
 
