@@ -9,9 +9,26 @@ mod core {
         type Request: SealedRequest + IsEmtpyRequest + prost::Message + Default + serde::de::DeserializeOwned + Send + Sync + 'static;
 
         #[cfg(not(feature = "http"))]
-        type Response: SealedResponse + SuccessResponse + prost::Message + Default + Send + Sync + 'static;
+        type Response: SealedResponse
+            + SuccessResponse
+            + PartialSuccessResponse
+            + WarningResponse
+            + prost::Message
+            + Default
+            + Send
+            + Sync
+            + 'static;
         #[cfg(feature = "http")]
-        type Response: SealedResponse + SuccessResponse + prost::Message + Default + serde::Serialize + Send + Sync + 'static;
+        type Response: SealedResponse
+            + SuccessResponse
+            + PartialSuccessResponse
+            + WarningResponse
+            + prost::Message
+            + Default
+            + Send
+            + Sync
+            + 'static
+            + serde::Serialize;
     }
 }
 
