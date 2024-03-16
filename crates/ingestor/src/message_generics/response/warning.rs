@@ -5,7 +5,7 @@ use crate::*;
 // TEMP: ?
 #[allow(dead_code)]
 pub trait WarningResponse: SealedResponse {
-    /// When server fully accepts the request by wants to convey warnings/suggestions to clients.
+    /// When server fully accepts a request but whishes to convey warnings/suggestions the clients.
     //
     // For implementors:
     // The rejected count field MUST have a value of 0
