@@ -6,7 +6,7 @@ use tonic::{
     codec::ProstCodec,
     codegen::*,
     server::{Grpc, NamedService, UnaryService},
-    Code, Request, Response,
+    Request, Response, Status,
 };
 
 use crate::*;
@@ -44,7 +44,8 @@ where
     }
 
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
-        if req.uri().path() == format!("/{}/Export", Self::NAME) {
+        let path = req.uri().path();
+        if path == format!("/{}/Export", Self::NAME) {
             Box::pin(async move {
                 Ok(Grpc::new(ProstCodec::default())
                     .apply_compression_config(*OTEL_GRPC_ENABLED_COMPRESSION_ENCODING, *OTEL_GRPC_ENABLED_COMPRESSION_ENCODING)
@@ -52,14 +53,8 @@ where
                     .await)
             })
         } else {
-            Box::pin(async move {
-                Ok(http::Response::builder()
-                    .status(http::StatusCode::OK)
-                    .header("grpc-status", Code::Unimplemented as i32)
-                    .header(http::header::CONTENT_TYPE, "application/grpc")
-                    .body(empty_body())
-                    .expect("invalid http response configuration"))
-            })
+            let path = path.to_owned();
+            Box::pin(async move { Ok(Status::unimplemented(format!("Method '{}' not implemented", path)).to_http()) })
         }
     }
 }

@@ -2,7 +2,7 @@
 
 use crate::*;
 
-pub async fn ingest_service<M: SignalMessage>(request: M::Request) -> anyhow::Result<M::Response> {
+pub async fn ingest_service<M: SignalMessage>(request: M::Request) -> Result<M::Response, IngestorServiceError> {
     if request.is_empty() {
         return Ok(M::Response::successful());
     }

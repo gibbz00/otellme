@@ -7,6 +7,9 @@ mod ingestor;
 pub use ingestor::OtlpIngestor;
 pub(crate) use ingestor::*;
 
+mod error;
+pub(crate) use error::IngestorServiceError;
+
 mod server;
 pub(crate) use server::OtlpServer;
 

@@ -21,9 +21,8 @@ impl From<&ContentTypeError> for StatusCode {
     }
 }
 
-// TODO:
-// The response body for all HTTP 4xx and HTTP 5xx responses
-// MUST be a Protobuf-encoded Status message that describes the problem.
+// NOTE: Can't add gRPC Status in body per spec because
+// the encoding to respond with is unknown.
 impl IntoResponse for ContentTypeError {
     fn into_response(self) -> Response {
         StatusCode::from(&self).into_response()

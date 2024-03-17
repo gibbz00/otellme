@@ -26,7 +26,7 @@ impl<M: SignalMessage> GrpcSignalService<M> {
         ingest_service::<M>(request.into_inner())
             .await
             .map(Response::new)
-            // TEMP: fix error handling
-            .map_err(|err| Status::unknown(err.to_string()))
+            .map_err(tonic_types::Status::from)
+            .map_err(|status| status.into())
     }
 }

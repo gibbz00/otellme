@@ -34,6 +34,8 @@ impl<M: SignalMessage> HttpService<M> {
             Err(_err) => return StatusCode::BAD_REQUEST.into_response(),
         };
 
+        // TODO(XXX): make sure the response uses the correct Content-Type headers
+
         ingest_service::<M>(signal_request)
             .await
             .map(|response| {
