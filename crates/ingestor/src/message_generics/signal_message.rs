@@ -4,9 +4,9 @@ mod core {
 
     pub trait SignalMessage: Send + Sync + 'static {
         #[cfg(not(feature = "http"))]
-        type Request: SealedRequest + IsEmtpyRequest + prost::Message + Default + Send + Sync + 'static;
+        type Request: SealedRequest + IsEmptyRequest + prost::Message + Default + Send + Sync + 'static;
         #[cfg(feature = "http")]
-        type Request: SealedRequest + IsEmtpyRequest + prost::Message + Default + serde::de::DeserializeOwned + Send + Sync + 'static;
+        type Request: SealedRequest + IsEmptyRequest + prost::Message + Default + serde::de::DeserializeOwned + Send + Sync + 'static;
 
         #[cfg(not(feature = "http"))]
         type Response: SealedResponse

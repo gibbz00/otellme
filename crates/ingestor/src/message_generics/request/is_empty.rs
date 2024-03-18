@@ -1,6 +1,6 @@
 use crate::*;
 
-pub trait IsEmtpyRequest: SealedRequest {
+pub trait IsEmptyRequest: SealedRequest {
     fn is_empty(&self) -> bool;
 }
 
@@ -8,7 +8,7 @@ pub trait IsEmtpyRequest: SealedRequest {
 mod logs {
     use opentelemetry_proto::tonic::collector::logs::v1::ExportLogsServiceRequest;
 
-    impl super::IsEmtpyRequest for ExportLogsServiceRequest {
+    impl super::IsEmptyRequest for ExportLogsServiceRequest {
         fn is_empty(&self) -> bool {
             self.resource_logs.is_empty()
         }
@@ -19,7 +19,7 @@ mod logs {
 mod metrics {
     use opentelemetry_proto::tonic::collector::metrics::v1::ExportMetricsServiceRequest;
 
-    impl super::IsEmtpyRequest for ExportMetricsServiceRequest {
+    impl super::IsEmptyRequest for ExportMetricsServiceRequest {
         fn is_empty(&self) -> bool {
             self.resource_metrics.is_empty()
         }
@@ -30,7 +30,7 @@ mod metrics {
 mod traces {
     use opentelemetry_proto::tonic::collector::trace::v1::ExportTraceServiceRequest;
 
-    impl super::IsEmtpyRequest for ExportTraceServiceRequest {
+    impl super::IsEmptyRequest for ExportTraceServiceRequest {
         fn is_empty(&self) -> bool {
             self.resource_spans.is_empty()
         }

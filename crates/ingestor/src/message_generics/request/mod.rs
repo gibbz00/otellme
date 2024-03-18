@@ -1,5 +1,5 @@
 mod is_empty;
-pub(crate) use is_empty::IsEmtpyRequest;
+pub(crate) use is_empty::IsEmptyRequest;
 
 #[cfg(test)]
 mod empty;

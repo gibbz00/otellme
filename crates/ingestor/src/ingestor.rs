@@ -29,7 +29,7 @@ mod core {
     use crate::*;
 
     /// Server implementation of the [OTLP Specification 1.0](https://opentelemetry.io/docs/specs/otlp/).
-    /// Recieves OTLP calls and places the contained singals into the configured storage.
+    /// Receives OTLP calls and places the contained signals into the configured storage.
     pub struct OtlpIngestor<S: OtlpIngestorState> {
         #[cfg(feature = "grpc")]
         optional_grpc_server: Option<GrpcServer>,
@@ -85,7 +85,7 @@ mod core {
     }
 
     impl OtlpIngestor<IngestorWithServer> {
-        /// Consume the ingestor and beging serving.
+        /// Consume the ingestor and begin serving.
         pub async fn serve(self) -> anyhow::Result<()> {
             try_join!(
                 #[cfg(feature = "grpc")]

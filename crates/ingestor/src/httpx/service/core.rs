@@ -58,7 +58,7 @@ impl<M: SignalMessage> HttpService<M> {
 mod tests {
     use super::*;
 
-    // Signal should not matter for theese tests.
+    // Signal should not matter for these tests.
     // Hence the use of only one variant.
     #[cfg(feature = "logs")]
     mod logs {

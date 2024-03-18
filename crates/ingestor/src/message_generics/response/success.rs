@@ -3,7 +3,7 @@ use crate::*;
 pub trait SuccessResponse: SealedResponse {
     /// OTPL/gRPC and OTLP/HTTP
     /// The server MUST leave the partial_success field unset in case of a successful response.
-    fn sucessful() -> Self;
+    fn successful() -> Self;
 }
 
 #[cfg(feature = "logs")]
@@ -13,7 +13,7 @@ mod logs {
     use crate::*;
 
     impl SuccessResponse for ExportLogsServiceResponse {
-        fn sucessful() -> Self {
+        fn successful() -> Self {
             Self { partial_success: None }
         }
     }
@@ -24,7 +24,7 @@ mod logs {
 
         #[test]
         fn successful_logs_response_has_unset_partial() {
-            assert!(ExportLogsServiceResponse::sucessful().partial_success.is_none())
+            assert!(ExportLogsServiceResponse::successful().partial_success.is_none())
         }
     }
 }
@@ -36,7 +36,7 @@ mod metrics {
     use crate::*;
 
     impl SuccessResponse for ExportMetricsServiceResponse {
-        fn sucessful() -> Self {
+        fn successful() -> Self {
             Self { partial_success: None }
         }
     }
@@ -47,7 +47,7 @@ mod metrics {
 
         #[test]
         fn successful_metric_response_has_unset_partial() {
-            assert!(ExportMetricsServiceResponse::sucessful().partial_success.is_none())
+            assert!(ExportMetricsServiceResponse::successful().partial_success.is_none())
         }
     }
 }
@@ -59,7 +59,7 @@ mod traces {
     use crate::*;
 
     impl SuccessResponse for ExportTraceServiceResponse {
-        fn sucessful() -> Self {
+        fn successful() -> Self {
             Self { partial_success: None }
         }
     }
@@ -70,7 +70,7 @@ mod traces {
 
         #[test]
         fn successful_trace_response_has_unset_partial() {
-            assert!(ExportTraceServiceResponse::sucessful().partial_success.is_none())
+            assert!(ExportTraceServiceResponse::successful().partial_success.is_none())
         }
     }
 }

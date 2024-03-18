@@ -4,12 +4,12 @@ use crate::*;
 
 pub async fn ingest_service<M: SignalMessage>(request: M::Request) -> anyhow::Result<M::Response> {
     if request.is_empty() {
-        return Ok(M::Response::sucessful());
+        return Ok(M::Response::successful());
     }
 
     // TODO: send to storage:
 
-    Ok(M::Response::sucessful())
+    Ok(M::Response::successful())
 }
 
 #[cfg(test)]
@@ -31,7 +31,7 @@ mod tests {
         async fn empty_request_returns_successful_response() {
             let empty_request = <LogsMessage as SignalMessage>::Request::empty();
             let actual_response = ingest_service::<LogsMessage>(empty_request).await.unwrap();
-            assert_eq!(<LogsMessage as SignalMessage>::Response::sucessful(), actual_response);
+            assert_eq!(<LogsMessage as SignalMessage>::Response::successful(), actual_response);
         }
     }
 }

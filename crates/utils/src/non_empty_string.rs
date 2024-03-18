@@ -20,7 +20,7 @@ mod tests {
     }
 
     #[test]
-    fn dissallows_empty_string() {
+    fn disallows_empty_string() {
         assert!(NonEmptyString::new("").is_none())
     }
 }

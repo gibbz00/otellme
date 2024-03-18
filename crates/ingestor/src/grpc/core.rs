@@ -21,7 +21,7 @@ impl<M: SignalMessage> GrpcSignalService<M> {
     //
     // https://github.com/open-telemetry/opentelemetry-proto/tree/main/opentelemetry/proto/collector
     pub async fn ingest(&self, request: Request<M::Request>) -> Result<Response<M::Response>, Status> {
-        tracing::info!("recieved request!");
+        tracing::info!("received request!");
 
         ingest_service::<M>(request.into_inner())
             .await
